@@ -1,7 +1,20 @@
 [
     {
         "id": 1,
-        "name": "Product - 1",
-        "price": 500
+        "name": "Wireless Bluetooth Headphones",
+        "description": "High-quality wireless headphones with noise cancellation and 20 hours battery backup.",
+        "price": 2500
+    },
+    {
+        "id": 2,
+        "name": "Smart LED TV",
+        "description": "42-inch Full HD Smart LED TV with built-in streaming apps and voice control support.",
+        "price": 32000
+    },
+    {
+        "id": 3,
+        "name": "Gaming Mechanical Keyboard",
+        "description": "RGB backlit mechanical keyboard designed for gaming and fast typing experience.",
+        "price": 4500
     }
 ]
