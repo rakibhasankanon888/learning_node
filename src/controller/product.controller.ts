@@ -83,5 +83,18 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
             }),
             );
         }
+
+        // console.log(products[index]);
+        products[index] = { id: products[index].id, ...body };
+        insertProduct(products);
+        res.writeHead(200, { "content-type": "application/json" });
+        res.end(JSON.stringify({
+            message: "Products Not Found",
+            data: products[index],
+
+
+        }),
+        );
+
     }
 };
