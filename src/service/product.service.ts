@@ -10,4 +10,8 @@ export const readProduct = () => {
     // console.log(products.toString());
     // console.log(JSON.parse(products));
     return JSON.parse(products);
+};
+
+export const insertProduct = (payLoad: any) => {
+    fs.writeFileSync(filePath, payLoad);
 }
