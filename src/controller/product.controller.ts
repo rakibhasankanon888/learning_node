@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { readProduct } from "../service/product.service";
+import { insertProduct, readProduct } from "../service/product.service";
 import type { IProduct } from "../types/product.type";
 import { parseBody } from "../utility/parseBody";
 
@@ -56,7 +56,8 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         };
         // console.log(newProduct);
         products.push(newProduct);
-        console.log(products);
+        // console.log(products);
+        insertProduct(products);
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({
             message: "Products created succeefully",
