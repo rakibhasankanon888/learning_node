@@ -47,6 +47,7 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         }),
         );
     } else if (method == "POST" && url === "/products") {
+        // Created Product by Post Method
         const body = await parseBody(req);
         // console.log("Body", body);
         const products = readProduct();
@@ -66,5 +67,21 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
 
         }),
         );
+    } else if (method === "PUT" && id !== null) {
+        const body = await parseBody(req)
+        const products = readProduct();
+
+        const index = products.findIndex((p: IProduct) => p.id === id);
+        // console.log(index);
+        if (index < 0) {
+            res.writeHead(404, { "content-type": "application/json" });
+            res.end(JSON.stringify({
+                message: "Products Not Found",
+                data: null,
+
+
+            }),
+            );
+        }
     }
 };
