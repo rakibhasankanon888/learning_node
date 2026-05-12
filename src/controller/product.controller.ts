@@ -96,5 +96,24 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         }),
         );
 
+    } else if (method === "DELETE" && id !== null) {
+        const products = readProduct()
+        const index = products.findIndex((p: IProduct) => p.id === id)
+        if (index < 0) {
+            res.writeHead(404, { "content-type": "application/json" });
+            res.end(JSON.stringify({
+                message: "Products Not Found",
+                data: null,
+
+
+            }),
+            );
+        }
+
+        const arr = ["1", "2", "3", "4"];
+        arr.splice(2, 1);
+        console.log(arr);
+        // products.splice()
+
     }
 };
