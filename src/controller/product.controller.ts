@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from "http";
 import { insertProduct, readProduct } from "../service/product.service";
 import type { IProduct } from "../types/product.type";
 import { parseBody } from "../utility/parseBody";
+import { sendResponse } from "../utility/sendResponse";
 
 
 export const productController = async (req: IncomingMessage, res: ServerResponse) => {
@@ -24,36 +25,50 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         //     },
 
         // ];
-        const product = readProduct();
+        try {
+            const product = readProduct();
 
-        res.writeHead(200, { "content-type": "application/json" });
-        res.end(JSON.stringify({
-            message: "Products retrived succeefully", data: product,
-
-        }),
-        );
-    } else if (method === "GET" && id !== null) {
-        // Get Single Products
-        const products = readProduct();
-        const product = products.find((p: IProduct) => p.id === id);
-        // console.log(product);
-        if (!product) {
-            res.writeHead(404, { "content-type": "application/json" });
-            res.end(JSON.stringify({
-                message: "Products Not Found", data: product,
-
-            }),
+            return sendResponse(
+                res,
+                200,
+                true,
+                "Products retrieved successfully",
+                product
+            );
+        } catch (error) {
+            return sendResponse(
+                res,
+                500,
+                false,
+                "Someting went wrong",
+                error
             );
         }
-
-
-
-        res.writeHead(200, { "content-type": "application/json" });
-        res.end(JSON.stringify({
-            message: "Products retrived succeefully", data: product,
-
-        }),
-        );
+    } else if (method === "GET" && id !== null) {
+        try {
+            // Get Single Products
+            const products = readProduct();
+            const product = products.find((p: IProduct) => p.id === id);
+            // console.log(product);
+            if (!product) {
+                return sendResponse(res, 404, false, "Products Not Found")
+            }
+            return sendResponse(
+                res,
+                200,
+                true,
+                "Products retrieved successfully",
+                product
+            );
+        } catch (error) {
+            return sendResponse(
+                res,
+                500,
+                false,
+                "Someting went wrong",
+                error
+            );
+        }
     } else if (method == "POST" && url === "/products") {
         // Created Product by Post Method
         const body = await parseBody(req);
