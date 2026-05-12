@@ -110,10 +110,20 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
             );
         }
 
-        const arr = ["1", "2", "3", "4"];
-        arr.splice(2, 1);
-        console.log(arr);
-        // products.splice()
+        // const arr = ["1", "2", "3", "4"];
+        // arr.splice(2, 1);
+        // console.log(arr);
+
+        products.splice(index, 1);
+        console.log(products);
+        res.writeHead(200, { "content-type": "application/json" });
+        res.end(JSON.stringify({
+            message: "Products Deleted successfully",
+            data: null,
+
+
+        }),
+        );
 
     }
 };
