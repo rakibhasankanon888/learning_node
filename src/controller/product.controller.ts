@@ -37,6 +37,14 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         const products = readProduct();
         const product = products.find((p: IProduct) => p.id === id);
         // console.log(product);
+        if (!product) {
+            res.writeHead(404, { "content-type": "application/json" });
+            res.end(JSON.stringify({
+                message: "Products Not Found", data: product,
+
+            }),
+            );
+        }
 
 
 
@@ -115,7 +123,8 @@ export const productController = async (req: IncomingMessage, res: ServerRespons
         // console.log(arr);
 
         products.splice(index, 1);
-        console.log(products);
+        // console.log(products);
+        insertProduct(products);
         res.writeHead(200, { "content-type": "application/json" });
         res.end(JSON.stringify({
             message: "Products Deleted successfully",
